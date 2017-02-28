@@ -9,16 +9,15 @@ const knex = require('knex')({
   }
 });
 
-const name = process.argv[2]
+const firstName = process.argv[2];
+const lastName = process.argv[3];
+const birthDate = process.argv[4];
 
-knex.select('*')
-.from('famous_people')
-.where('first_name', '=', name)
-// .andWhere('last_name', '=', name)
+const insert = {first_name: firstName, last_name: lastName, birthdate: birthDate};
+
+knex.insert(insert).into("famous_people")
 .then(function (result) {
-  result.forEach(function (person) {
-    console.log(person);
-  });
+  console.log(result);
 })
 .finally(function () {
   knex.destroy();
